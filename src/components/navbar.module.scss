@@ -1,0 +1,12 @@
+.navbar {
+  display: flex;
+  align-items: center;
+
+  padding: 1.2rem;
+  gap: 1rem;
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}

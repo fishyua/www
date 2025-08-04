@@ -1,7 +1,9 @@
+import FishSymbol from "~/assets/fish.svg";
+
 export default function Home() {
   return (
     <main>
-      <h1>hi</h1>
+      <FishSymbol />
     </main>
   );
 }
