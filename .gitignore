@@ -1,0 +1,25 @@
+dist
+.wrangler
+.output
+.vercel
+.netlify
+.vinxi
+app.config.timestamp_*.js
+
+# environment
+.env
+.env*.local
+
+# dependencies
+/node_modules
+
+# IDEs
+/.idea
+/.vscode
+
+# why??
+gitignore
+
+# ok
+.DS_Store
+Thumbs.db
