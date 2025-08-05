@@ -1,5 +1,5 @@
 import styles from "./navbar.module.scss";
-import { JSX, ParentProps } from "solid-js";
+import { ParentProps } from "solid-js";
 
 export function Navbar(props: ParentProps) {
   return <nav class={styles.navbar}>{props.children}</nav>;
