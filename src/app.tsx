@@ -14,6 +14,7 @@ export default function App() {
           <Title>feiyeur</Title>
           <Navbar>
             <NavbarItem href="/">feiyeur</NavbarItem>
+            <NavbarItem href="/posts">posts</NavbarItem>
             <NavbarItem href="https://github.com/feiyeur" newTab>
               github
             </NavbarItem>
