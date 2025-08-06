@@ -2,7 +2,9 @@ import { Client } from "@notionhq/client";
 import { createAsync, useParams } from "@solidjs/router";
 import { NotionToMarkdown } from "notion-to-md";
 import { marked } from "marked";
-import { findPostFromStore, postStore } from "~/lib/stores";
+import { findPostFromStore } from "~/lib/stores";
+
+import "github-markdown-css/github-markdown-light.css";
 
 const getPostIdBySlug = async (slug: string) => {
   "use server";
@@ -49,7 +51,9 @@ export default function Blog() {
 
   return (
     <main>
-      <article innerHTML={rendered()!} />
+      <div class="post-container">
+        <article class="markdown-body" innerHTML={rendered()!} />
+      </div>
     </main>
   );
 }

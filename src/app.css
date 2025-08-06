@@ -7,4 +7,20 @@
 
 :root {
   font-family: Inter, sans-serif;
+  letter-spacing: -0.02rem;
+  line-height: 1;
+}
+
+.post-container {
+  padding: 1rem;
+  max-width: 48rem;
+
+  /*div centering tutorialle*/
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.markdown-body {
+  font-family: inherit !important;
 }
