@@ -1,41 +1,53 @@
 import { Client } from "@notionhq/client";
-import { createAsync, useParams } from "@solidjs/router";
-import { Suspense } from "solid-js";
+import { createAsync, useParams, useNavigate } from "@solidjs/router";
+import { createEffect } from "solid-js";
 import { NotionToMarkdown } from "notion-to-md";
 import { marked } from "marked";
 import { findPostFromStore } from "~/lib/stores";
-import { getPostIdBySlug } from "~/lib/notion";
+import { getPostBySlug } from "~/lib/notion";
+import SEO from "~/lib/seo";
 
 import "github-markdown-css/github-markdown-light.css";
+import { Post } from "~/lib/types";
 
-const getPostContent = async (slug: string | null, id: string | null) => {
+const getPostContent = async (slug: string | null, post: Post | null) => {
   "use server";
   const notion = new Client({ auth: process.env.NOTION_KEY });
 
-  if (!id) {
-    const response = await getPostIdBySlug(slug!);
+  if (!post) {
+    const response = await getPostBySlug(slug!);
     if (!response) return null;
-    id = response;
+    post = response[0];
   }
 
   const n2m = new NotionToMarkdown({ notionClient: notion });
-  const md = n2m.toMarkdownString(await n2m.pageToMarkdown(id));
-  return marked(md.parent);
+  const md = n2m.toMarkdownString(await n2m.pageToMarkdown(post.id));
+  const rendered = await marked(md.parent);
+
+  return {
+    title: post.title,
+    date_edit: post.date_edit,
+    content: rendered,
+  };
 };
 
 export default function Blog() {
   const slug = useParams().slug;
-  const rendered = createAsync(() =>
-    getPostContent(slug, findPostFromStore(slug)?.id || null),
-  );
+  const post = createAsync(() => getPostContent(slug, findPostFromStore(slug)));
+
+  const nav = useNavigate();
+
+  createEffect(() => {
+    if (post() === null) nav("/404");
+  });
 
   return (
-    <main>
-      <div class="post-container">
-        <Suspense fallback={<p>Loading</p>}>
-          <article class="markdown-body" innerHTML={rendered()!} />
-        </Suspense>
-      </div>
-    </main>
+    <SEO title="post title placeholder" description="the post">
+      <main>
+        <div class="post-container">
+          <article class="markdown-body" innerHTML={post()?.content} />
+        </div>
+      </main>
+    </SEO>
   );
 }

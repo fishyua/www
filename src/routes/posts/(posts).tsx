@@ -3,6 +3,7 @@ import { createEffect, For } from "solid-js";
 
 import { postStore, setPostStore } from "~/lib/stores";
 import { getPosts } from "~/lib/notion";
+import SEO from "~/lib/seo";
 
 export default function BlogList() {
   if (!postStore.loaded) {
@@ -14,18 +15,20 @@ export default function BlogList() {
   }
 
   return (
-    <main>
-      {postStore.loaded ? (
-        <For each={postStore.posts}>
-          {(post) => (
-            <div>
-              <A href={`/posts/${post.slug}`}>{post.title}</A>
-            </div>
-          )}
-        </For>
-      ) : (
-        <p>Loading</p>
-      )}
-    </main>
+    <SEO title="posts" description="hi. i have a blog">
+      <main>
+        {postStore.loaded ? (
+          <For each={postStore.posts}>
+            {(post) => (
+              <div>
+                <A href={`/posts/${post.slug}`}>{post.title}</A>
+              </div>
+            )}
+          </For>
+        ) : (
+          <p>Loading</p>
+        )}
+      </main>
+    </SEO>
   );
 }

@@ -8,7 +8,7 @@ const author: Author = {
 export const getFeed = async () => {
   const feed = new Feed({
     title: "feiyeur",
-    description: process.env.SITE_DESCRIPTION,
+    description: "hi. i live here",
     id: `https://${process.env.SITE_DOMAIN}/`,
     link: `https://${process.env.SITE_DOMAIN}/`,
     language: "en",

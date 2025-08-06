@@ -1,5 +1,17 @@
 import { Client } from "@notionhq/client";
 import { Post } from "~/lib/types";
+import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+
+const notionToPage = (response: QueryDatabaseResponse) =>
+  response.results.map<Post>((page: any) => ({
+    id: page.id,
+    title: page.properties.name.title[0]?.plain_text || "Untitled",
+    slug: page.properties.slug.rich_text[0].plain_text,
+    date: new Date(page.properties.date[page.properties.date.type]),
+    date_edit: new Date(
+      page.properties.date_edit[page.properties.date_edit.type],
+    ),
+  }));
 
 export const getPosts = async () => {
   "use server";
@@ -22,18 +34,10 @@ export const getPosts = async () => {
     ],
   });
 
-  return response.results.map<Post>((page: any) => ({
-    id: page.id,
-    title: page.properties.name.title[0]?.plain_text || "Untitled",
-    slug: page.properties.slug.rich_text[0].plain_text,
-    date: new Date(page.properties.date[page.properties.date.type]),
-    date_edit: new Date(
-      page.properties.date_edit[page.properties.date_edit.type],
-    ),
-  }));
+  return notionToPage(response);
 };
 
-export const getPostIdBySlug = async (slug: string) => {
+export const getPostBySlug = async (slug: string) => {
   "use server";
   const notion = new Client({ auth: process.env.NOTION_KEY });
   const databaseId = process.env.NOTION_ID_POSTS!;
@@ -52,5 +56,5 @@ export const getPostIdBySlug = async (slug: string) => {
     return null;
   }
 
-  return response.results[0].id;
+  return notionToPage(response);
 };
