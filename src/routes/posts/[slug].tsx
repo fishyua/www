@@ -1,33 +1,12 @@
 import { Client } from "@notionhq/client";
 import { createAsync, useParams } from "@solidjs/router";
+import { Suspense } from "solid-js";
 import { NotionToMarkdown } from "notion-to-md";
 import { marked } from "marked";
 import { findPostFromStore } from "~/lib/stores";
+import { getPostIdBySlug } from "~/lib/notion";
 
 import "github-markdown-css/github-markdown-light.css";
-import { Suspense } from "solid-js";
-
-const getPostIdBySlug = async (slug: string) => {
-  "use server";
-  const notion = new Client({ auth: process.env.NOTION_KEY });
-  const databaseId = process.env.NOTION_ID_POSTS!;
-
-  const response = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      property: "slug",
-      rich_text: {
-        equals: slug,
-      },
-    },
-  });
-
-  if (response.results.length === 0) {
-    return null;
-  }
-
-  return response.results[0].id;
-};
 
 const getPostContent = async (slug: string | null, id: string | null) => {
   "use server";
