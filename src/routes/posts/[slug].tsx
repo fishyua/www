@@ -5,6 +5,7 @@ import { marked } from "marked";
 import { findPostFromStore } from "~/lib/stores";
 
 import "github-markdown-css/github-markdown-light.css";
+import { Suspense } from "solid-js";
 
 const getPostIdBySlug = async (slug: string) => {
   "use server";
@@ -52,7 +53,9 @@ export default function Blog() {
   return (
     <main>
       <div class="post-container">
-        <article class="markdown-body" innerHTML={rendered()!} />
+        <Suspense fallback={<p>Loading</p>}>
+          <article class="markdown-body" innerHTML={rendered()!} />
+        </Suspense>
       </div>
     </main>
   );

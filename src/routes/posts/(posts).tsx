@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 import { A, createAsync } from "@solidjs/router";
-import { createEffect, For, Suspense } from "solid-js";
+import { createEffect, For } from "solid-js";
 
 import { Post } from "~/lib/types";
 import { postStore, setPostStore } from "~/lib/stores";
@@ -48,7 +48,7 @@ export default function BlogList() {
 
   return (
     <main>
-      <Suspense fallback={<p>Loading...</p>}>
+      {postStore.loaded ? (
         <For each={postStore.posts}>
           {(post) => (
             <div>
@@ -56,7 +56,9 @@ export default function BlogList() {
             </div>
           )}
         </For>
-      </Suspense>
+      ) : (
+        <p>Loading</p>
+      )}
     </main>
   );
 }
