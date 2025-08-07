@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 import { createAsync, useParams, useNavigate } from "@solidjs/router";
-import { createEffect } from "solid-js";
+import { createEffect, Show } from "solid-js";
 import { NotionToMarkdown } from "notion-to-md";
 import { marked } from "marked";
 import { findPostFromStore } from "~/lib/stores";
@@ -42,12 +42,14 @@ export default function Blog() {
   });
 
   return (
-    <SEO title="post title placeholder" description="the post">
-      <main>
-        <div class="post-container">
-          <article class="markdown-body" innerHTML={post()?.content} />
-        </div>
-      </main>
-    </SEO>
+    <Show when={post()}>
+      <SEO title={post()!.title} description="the post">
+        <main>
+          <div class="post-container">
+            <article class="markdown-body" innerHTML={post()!.content} />
+          </div>
+        </main>
+      </SEO>
+    </Show>
   );
 }
