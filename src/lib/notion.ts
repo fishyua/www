@@ -21,10 +21,20 @@ export const getPosts = async () => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "published",
-      checkbox: {
-        equals: true,
-      },
+      and: [
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          property: "hidden",
+          checkbox: {
+            equals: false,
+          },
+        },
+      ],
     },
     sorts: [
       {
@@ -45,10 +55,20 @@ export const getPostBySlug = async (slug: string) => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "slug",
-      rich_text: {
-        equals: slug,
-      },
+      and: [
+        {
+          property: "slug",
+          rich_text: {
+            equals: slug,
+          },
+        },
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
+      ],
     },
   });
 
