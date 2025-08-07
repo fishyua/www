@@ -11,9 +11,14 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.6",
+    "@notionhq/client": "^4.0.1",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.0",
     "@solidjs/start": "^1.1.0",
+    "feed": "^5.1.0",
+    "github-markdown-css": "^5.8.1",
+    "marked": "^16.1.2",
+    "notion-to-md": "^3.1.9",
     "solid-js": "^1.9.5",
     "vinxi": "^0.5.7"
   },

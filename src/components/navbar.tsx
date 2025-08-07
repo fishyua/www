@@ -1,5 +1,6 @@
 import styles from "./navbar.module.scss";
 import { ParentProps } from "solid-js";
+import { A } from "@solidjs/router";
 
 export function Navbar(props: ParentProps) {
   return <nav class={styles.navbar}>{props.children}</nav>;
@@ -16,8 +17,8 @@ export function NavbarItem({
   children,
 }: NavbarItemProps) {
   return (
-    <a href={href} {...(newTab && { target: "_blank", rel: "noreferrer" })}>
+    <A href={href} {...(newTab && { target: "_blank", rel: "noreferrer" })}>
       {children}
-    </a>
+    </A>
   );
 }

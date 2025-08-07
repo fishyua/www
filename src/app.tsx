@@ -1,4 +1,3 @@
-import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
@@ -10,16 +9,16 @@ export default function App() {
   return (
     <Router
       root={(props) => (
-        <MetaProvider>
-          <Title>feiyeur</Title>
+        <>
           <Navbar>
             <NavbarItem href="/">feiyeur</NavbarItem>
+            <NavbarItem href="/posts">posts</NavbarItem>
             <NavbarItem href="https://github.com/feiyeur" newTab>
               github
             </NavbarItem>
           </Navbar>
           <Suspense>{props.children}</Suspense>
-        </MetaProvider>
+        </>
       )}
     >
       <FileRoutes />
