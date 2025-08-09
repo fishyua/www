@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ThemeProvider } from "next-themes";
 import { Navbar, NavbarItem } from "@/components/navbar";
 
 const interFont = Inter({
@@ -22,16 +23,23 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${interFont.className} antialiased`}>
-        <Navbar>
-          <NavbarItem href="/">feiyeur</NavbarItem>
-          <NavbarItem href="/posts">posts</NavbarItem>
-          <NavbarItem href="https://github.com/feiyeur" newWindow>
-            github
-          </NavbarItem>
-        </Navbar>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar>
+            <NavbarItem href="/">feiyeur</NavbarItem>
+            <NavbarItem href="/posts">posts</NavbarItem>
+            <NavbarItem href="https://github.com/feiyeur" newWindow>
+              github
+            </NavbarItem>
+          </Navbar>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

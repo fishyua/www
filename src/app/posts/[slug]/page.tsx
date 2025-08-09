@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getPostBySlug, postToMarkdown } from "@/lib/notion";
 import type { Post } from "@/lib/types";
-import "github-markdown-css/github-markdown-light.css";
+import "github-markdown-css/github-markdown.css";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -52,7 +52,7 @@ export default async function PostView({ params }: Props) {
         {post.title}
       </h1>
       <article
-        className="markdown-body"
+        className="markdown-body bg-inherit!"
         dangerouslySetInnerHTML={{ __html: rendered }}
       />
     </main>
