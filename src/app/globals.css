@@ -140,4 +140,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  ol,
+  ul,
+  menu {
+    list-style: unset;
+  }
 }
