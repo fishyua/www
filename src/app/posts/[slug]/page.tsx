@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getPostBySlug, postToMarkdown } from "@/lib/notion";
+import { sanitize } from "@/lib/sanitizer";
 import type { Post } from "@/lib/types";
 import "github-markdown-css/github-markdown.css";
 
@@ -45,7 +46,7 @@ export default async function PostView({ params }: Props) {
   const post = await getPost(slug, null);
   if (!post) return <p>post not found</p>;
 
-  const rendered = await getPostContent(post.id);
+  const rendered = sanitize(await getPostContent(post.id));
   return (
     <main className="max-w-4xl left-0 right-0 m-auto px-4 py-10">
       <h1 className="text-4xl font-semibold mb-8" aria-hidden="true">
