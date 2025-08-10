@@ -13,7 +13,7 @@ const interFont = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${process.env.SITE_DOMAIN}`),
-  title: "feiyeur",
+  title: "fishyua",
   description: "hi. i live here",
 };
 
@@ -32,9 +32,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar>
-            <NavbarItem href="/">feiyeur</NavbarItem>
+            <NavbarItem href="/">fishyua</NavbarItem>
             <NavbarItem href="/posts">posts</NavbarItem>
-            <NavbarItem href="https://github.com/feiyeur" newWindow>
+            <NavbarItem href="https://github.com/fishyua" newWindow>
               github
             </NavbarItem>
           </Navbar>
