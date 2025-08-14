@@ -33,7 +33,6 @@ export default function RootLayout({
         >
           <Navbar>
             <NavbarItem href="/">fishyua</NavbarItem>
-            <NavbarItem href="/posts">posts</NavbarItem>
             <NavbarItem href="https://github.com/fishyua" newWindow>
               github
             </NavbarItem>
